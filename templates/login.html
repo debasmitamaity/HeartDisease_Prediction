@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login | Heal My Heart</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url('/static/Login.jpg'); /* Use correct Flask path */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-box {
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px #7bebe5, 0 0 30px #7bebe5;
+            border: 2px solid #7bebe5;
+            width: 350px;
+            text-align: center;
+            transition: 0.3s ease-in-out;
+        }
+
+        .login-box h2 {
+            margin-bottom: 25px;
+            color: #333;
+        }
+
+        .login-box input[type="text"],
+        .login-box input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .login-box input[type="text"]:hover,
+        .login-box input[type="password"]:hover {
+            border: 2px solid #b8bfbf;
+            box-shadow: 0 0 8px #b8bfbf;
+        }
+
+        .login-box input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background-color: #4fe4b0;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .login-box input[type="submit"]:hover {
+            background-color: #acdad9;
+            box-shadow: 0 0 10px #acdad9, 0 0 20px #acdad9;
+        }
+
+        .login-box p {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .login-box a {
+            color: #20d697;
+            text-decoration: none;
+        }
+
+        .login-box a:hover {
+            text-decoration: underline;
+        }
+
+        #error-msg {
+            color: #17b67e;
+            display: none;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <h2>🔐 Login</h2>
+        <form method="POST">
+            <input type="text" name="username" placeholder="Username" required
+                   style="width: 90%; padding: 12px; margin: 10px auto; display: block; border-radius: 8px; border: 1px solid #ccc; font-size: 16px;">
+            <input type="password" name="password" placeholder="Password" required
+                   style="width: 90%; padding: 12px; margin: 10px auto; display: block; border-radius: 8px; border: 1px solid #ccc; font-size: 16px;">
+            <input type="submit" value="Login"
+                   style="width: 90%; padding: 12px; margin: 20px auto 0 auto; display: block; background-color: #4fe4b0; border: none; border-radius: 8px; color: white; font-size: 16px; cursor: pointer;">
+        </form>
+        <p id="error-msg">Invalid username or password</p>
+        <p>Don't have an account? <a href="/register">Register here</a></p>
+    </div>
+</body>
+</html>

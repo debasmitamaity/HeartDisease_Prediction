@@ -1,0 +1,7 @@
+Flask
+numpy
+pandas
+scikit-learn
+pickle5
+gunicorn
+Flask-Mail

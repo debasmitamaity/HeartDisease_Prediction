@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome | Heal My Heart</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url("{{ url_for('static', filename='Welcome2.png') }}");
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Montserrat', sans-serif;
+            color: #ffffff;
+            text-align: center;
+            background-color: #2e8b57; /* fallback for seagreen tone */
+        }
+
+        h2 {
+            font-size: 22px;
+            margin: 0;
+            font-weight: 400;
+            color: #2e8b57;
+        }
+
+        h1 {
+            font-size: 64px;
+            font-family: "Lora", serif;
+            color: #2e8b57;
+            margin: 10px 0 20px 0;
+        }
+
+        p {
+            font-size: 20px;
+            color: #2e8b57;
+            margin-bottom: 50px;
+        }
+
+        .btn-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn {
+            padding: 12px 28px;
+            font-size: 16px;
+            border: none;
+            border-radius: 40px;
+            margin-bottom: 230px;
+            background-color: rgba(255, 255, 255, 0.85);
+            color: #2e8b57;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #ffd700;
+            color: #2e8b57;
+            transform: scale(1.05);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h2>WELCOME TO</h2>
+    <h1>HEAL MY HEART</h1>
+    <p>Predict, Prevent, Protect.</p>
+    <div class="btn-container">
+        <a href="{{ url_for('login') }}" class="btn">Login</a>
+        <a href="{{ url_for('register') }}" class="btn">New User?</a>
+    </div>
+</body>
+</html>
