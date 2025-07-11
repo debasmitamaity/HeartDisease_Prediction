@@ -1,30 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Welcome | Heal My Heart</title>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
     <style>
-        body {
+        * {
             margin: 0;
             padding: 0;
+            scroll-behavior: smooth;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
             background-image: url("{{ url_for('static', filename='Welcome2.png') }}");
             background-size: cover;
+            background-attachment: fixed;
             background-position: center;
+            color: #2e8b57;
+            min-height: 100vh;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            position: fixed;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            z-index: 1000;
+            user-select: none;
+        }
+
+        .navbar a {
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 18px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding-left: 12px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        /* Circular background for icons */
+        .navbar a i {
+            background: #2e8b57;
+            border-radius: 50%;
+            padding: 10px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+            font-size: 20px;
+            transition: background 0.3s ease;
+            color: white;
+        }
+
+        /* Hover effect */
+        .navbar a:hover {
+            color: #ffd700;
+            padding-left: 22px;
+        }
+        .navbar a:hover i {
+            background: #ffd700;
+            color: #2e8b57;
+            box-shadow: 0 0 15px #ffd700;
+        }
+
+        /* Small vertical bar indicator */
+        .navbar a::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            height: 0;
+            width: 4px;
+            background: #ffd700;
+            border-radius: 4px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: height 0.3s ease;
+        }
+        .navbar a:hover::before {
+            height: 60%;
+        }
+
+        /* Content Styles */
+        .content {
             height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            font-family: 'Montserrat', sans-serif;
-            color: #ffffff;
             text-align: center;
-            background-color: #2e8b57; /* fallback for seagreen tone */
+            padding: 0 20px;
         }
 
         h2 {
             font-size: 22px;
-            margin: 0;
             font-weight: 400;
             color: #2e8b57;
         }
@@ -36,15 +113,36 @@
             margin: 10px 0 20px 0;
         }
 
-        p {
-            font-size: 20px;
+        .slogan {
+            font-size: 25px;
+            margin-bottom: 20px;
             color: #2e8b57;
-            margin-bottom: 50px;
+        }
+
+        .about-note {
+            max-width: 650px;
+            margin-top: 10px;
+            padding: 20px 25px;
+            background: rgba(46, 139, 87, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 18px;
+            backdrop-filter: blur(6px);
+            color: #f8f8f8;
+            font-size: 16px;
+            line-height: 1.65;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            font-style: italic;
+            font-weight: 500;
+            user-select: none;
         }
 
         .btn-container {
             display: flex;
             gap: 20px;
+            justify-content: center;
+            margin-top: 40px;
+            margin-bottom: 150px;
         }
 
         .btn {
@@ -52,7 +150,6 @@
             font-size: 16px;
             border: none;
             border-radius: 40px;
-            margin-bottom: 230px;
             background-color: rgba(255, 255, 255, 0.85);
             color: #2e8b57;
             text-decoration: none;
@@ -63,19 +160,218 @@
 
         .btn:hover {
             background-color: #ffd700;
-            color: #2e8b57;
             transform: scale(1.05);
             cursor: pointer;
         }
+
+        /* Section styles */
+        section {
+            padding: 80px 20px;
+            color: white;
+            text-align: center;
+        }
+
+        .card {
+            background-color: rgba(255, 255, 255, 0.95);
+            color: #2e8b57;
+            border-radius: 20px;
+            padding: 30px 25px;
+            width: 80%;
+            max-width: 600px;
+            margin: 40px auto;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .card h3 {
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .card ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .card ul li {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        /* Doctors */
+        section#doctors > h3 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: white;
+            user-select: none;
+        }
+
+        .doctor {
+            display: flex;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #2e8b57;
+            padding: 20px;
+            margin: 15px auto;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 800px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            text-align: left;
+            gap: 20px;
+        }
+
+        .doctor img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .doctor-info {
+            flex: 1;
+        }
+
+        .doctor-info h4 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .doctor-info p {
+            margin: 5px 0;
+            font-size: 16px;
+        }
+
+        /* Contact */
+        section#contact > h3 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: white;
+            user-select: none;
+        }
+
+        footer {
+            text-align: center;
+            color: white;
+            padding: 40px 0;
+            font-size: 16px;
+            user-select: none;
+        }
     </style>
+
+    <script>
+      window.onload = function () {
+        window.scrollTo(0, 0);
+      };
+    </script>
 </head>
+
 <body>
-    <h2>WELCOME TO</h2>
-    <h1>HEAL MY HEART</h1>
-    <p>Predict, Prevent, Protect.</p>
-    <div class="btn-container">
-        <a href="{{ url_for('login') }}" class="btn">Login</a>
-        <a href="{{ url_for('register') }}" class="btn">New User?</a>
+
+    <!-- Sidebar Navbar -->
+    <div class="navbar">
+        <a href="#tips"><i class="fas fa-heartbeat"></i> Health Tips</a>
+        <a href="#facts"><i class="fas fa-heart"></i> Heart Facts</a>
+        <a href="#doctors"><i class="fas fa-user-md"></i> Specialists</a>
+        <a href="{{ url_for('login') }}"><i class="fas fa-sign-in-alt"></i> Login</a>
+        <a href="{{ url_for('register') }}"><i class="fas fa-user-plus"></i> Register</a>
+        <a href="#contact"><i class="fas fa-envelope"></i> Contact Us</a>
     </div>
+
+    <!-- Welcome -->
+    <div class="content" id="welcome">
+        <h2>WELCOME TO</h2>
+        <h1>HEAL MY HEART</h1>
+        <p class="slogan">Predict, Prevent, Protect.</p>
+        <p class="about-note">
+          Heal My Heart is your trusted guide to heart wellness. With expert insights and advanced technology, we help identify early risks, promote prevention, and connect you to the care you deserve—because a healthy heart is a protected heart.
+        </p>
+        <div class="btn-container">
+            <a href="{{ url_for('login') }}" class="btn">Login</a>
+            <a href="{{ url_for('register') }}" class="btn">New User?</a>
+        </div>
+    </div>
+
+    <!-- Health Tips -->
+    <section id="tips">
+        <div class="card">
+            <h3>💖 Health Tips</h3>
+            <ul>
+                <li>💧 Drink 8 glasses of water daily.</li>
+                <li>🚶 Walk 30 minutes a day.</li>
+                <li>🍎 Eat fruits & vegetables daily.</li>
+                <li>🧘 Practice deep breathing.</li>
+                <li>🚭 Avoid tobacco & excess alcohol.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Heart Facts -->
+    <section id="facts">
+        <div class="card">
+            <h3>🫀 Heart Facts</h3>
+            <ul>
+                <li>❤️ Heart disease is the leading cause of death.</li>
+                <li>🍃 80% of heart issues are preventable.</li>
+                <li>🩺 High BP is a silent killer.</li>
+                <li>📋 Early diagnosis saves lives.</li>
+                <li>🧠 Mental health matters too.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Doctors -->
+    <section id="doctors">
+        <h3>🩺 Heart Specialists</h3>
+        <div class="doctor">
+            <img src="{{ url_for('static', filename='male.jpg') }}" alt="Dr. A.K. Sen" />
+            <div class="doctor-info">
+                <h4>Dr. A.K. Sen, MD Cardiology</h4>
+                <p>Apollo Hospital, Kolkata</p>
+                <p>📞 +91 98765 43210</p>
+            </div>
+        </div>
+        <div class="doctor">
+            <img src="{{ url_for('static', filename='woman.avif') }}" alt="Dr. Priya Ghosh" />
+            <div class="doctor-info">
+                <h4>Dr. Priya Ghosh, DM Cardiology</h4>
+                <p>Fortis Hospital, Kolkata</p>
+                <p>📞 +91 98000 12345</p>
+            </div>
+        </div>
+        <div class="doctor">
+            <img src="{{ url_for('static', filename='male.jpg') }}" alt="Dr. Ramesh Mehta" />
+            <div class="doctor-info">
+                <h4>Dr. Ramesh Mehta, MCh CTVS</h4>
+                <p>Medica Superspecialty Hospital</p>
+                <p>📞 +91 98330 45678</p>
+            </div>
+        </div>
+        <div class="doctor">
+            <img src="{{ url_for('static', filename='woman.avif') }}" alt="Dr. Sneha Roy" />
+            <div class="doctor-info">
+                <h4>Dr. Sneha Roy, DM Cardiology</h4>
+                <p>AMRI Hospital, Salt Lake</p>
+                <p>📞 +91 91234 56789</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+        <h3>📩 Contact Us</h3>
+        <p>
+            Email: healmyheartweb@gmail.com<br />
+            Phone: +91-89102-80561<br />
+            Address: Kolkata, India
+        </p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        © Heal My Heart, by Debasmita Maity and Shirsa Samanta. All rights reserved.
+    </footer>
 </body>
 </html>

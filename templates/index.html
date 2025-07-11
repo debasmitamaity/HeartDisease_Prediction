@@ -1,177 +1,226 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Heal My Heart</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-        }
-        .video-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: -1;
-        }
-        .video-container video {
-            min-width: 100%;
-            min-height: 100%;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            object-fit: cover;
-        }
-        .content-wrapper {
-            position: relative;
-            z-index: 10;
-            min-height: 100vh;
-            padding: 1rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow-y: auto;
-        }
-        #dob-display {
-            margin-top: 1rem;
-            font-size: 1rem;
-            font-weight: 600;
-            color: #4a5568;
-        }
-        .button-group {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 1rem;
-        }
-        #reset-button {
-            margin-right: 20px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Heal My Heart</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='output.css') }}" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Inter', sans-serif;
+      background: url("{{ url_for('static', filename='Index4.png') }}") no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .content-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    .form-container {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 1.5rem;
+      backdrop-filter: blur(15px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+      padding: 2rem;
+      width: 100%;
+      max-width: 500px;
+      max-height: 90vh;
+      overflow-y: auto;
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+      transition: all 0.3s ease;
+    }
+
+    .form-container::-webkit-scrollbar {
+      display: none;  /* Chrome, Safari */
+    }
+
+    .form-container:hover {
+      transform: scale(1.01);
+    }
+
+    h1 {
+      text-align: center;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+    }
+
+    label {
+      color: #ffffff;
+      font-weight: 600;
+      display: block;
+      margin-bottom: 0.4rem;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    }
+
+    input {
+      width: 100%;
+      padding: 0.6rem 1rem;
+      margin-bottom: 1rem;
+      border: none;
+      border-radius: 0.75rem;
+      background: rgba(255, 255, 255, 0.8);
+      transition: box-shadow 0.3s ease, transform 0.2s ease;
+    }
+
+    input:hover, input:focus {
+      box-shadow: 0 0 12px rgba(30, 144, 255, 0.5);
+      outline: none;
+      transform: scale(1.02);
+    }
+
+    #dob-display {
+      color: #fefefe;
+      font-weight: 500;
+      margin-bottom: 1rem;
+      text-shadow: 1px 1px 3px black;
+    }
+
+    .button-group {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    button {
+      flex: 1;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 9999px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    #reset-button {
+      background: linear-gradient(to right, #fbbf24, #f97316);
+      color: white;
+    }
+
+    #reset-button:hover {
+      background: linear-gradient(to right, #f59e0b, #ea580c);
+      transform: scale(1.05);
+    }
+
+    button[type="submit"] {
+      background: linear-gradient(to right, #10b981, #3b82f6);
+      color: white;
+    }
+
+    button[type="submit"]:hover {
+      background: linear-gradient(to right, #059669, #2563eb);
+      transform: scale(1.05);
+    }
+
+    a {
+      color: #e0f2fe;
+      text-align: center;
+      display: block;
+      margin-top: 1.5rem;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .alert {
+      background: rgba(255, 0, 0, 0.1);
+      border: 1px solid red;
+      color: red;
+      padding: 0.8rem;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+  </style>
 </head>
-<body class="bg-gradient-to-r from-blue-100 to-purple-100">
-    <div class="video-container">
-        <video autoplay loop muted playsinline>
-            <source src="{{ url_for('static', filename='Backgroung.mp4') }}" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </div>
-    <div class="content-wrapper">
-        <div class="bg-white rounded-lg shadow-xl p-8 w-full max-w-md transition-transform hover:scale-105">
-            <h1 class="text-xl font-semibold text-center text-blue-700 mb-6">Let's Start Your Heart Health Assessment👍</h1>
-            {% if error %}
-                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
-                    <strong class="font-bold">Error:</strong>
-                    <span class="block sm:inline">{{ error }}</span>
-                </div>
-            {% endif %}
-            <form id="heart-form" method="POST" action="/predict" class="space-y-4">
-                <div>
-                    <label for="dob" class="block text-gray-700 text-sm font-bold mb-2">Date of Birth:</label>
-                    <input type="text" id="dob" name="dob" placeholder="Select Date" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                    <div id="dob-display"></div>
-                </div>
-                <div>
-                    <label for="gender" class="block text-gray-700 text-sm font-medium mb-2">Gender (1=Male, 0=Female):</label>
-                    <input type="number" id="gender" name="gender" min="0" max="1" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm">
-                </div>
-                <div>
-                    <label for="height" class="block text-gray-700 text-sm font-medium mb-2">Height (cm):</label>
-                    <input type="number" id="height" name="height" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm">
-                </div>
-                <div>
-                    <label for="weight" class="block text-gray-700 text-sm font-medium mb-2">Weight (kg):</label>
-                    <input type="number" id="weight" name="weight" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm">
-                </div>
-                <div>
-                    <label for="ap_hi" class="block text-gray-700 text-sm font-medium mb-2">Systolic Blood Pressure (mmHg):</label>
-                    <input type="number" id="ap_hi" name="ap_hi" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm">
-                </div>
-                <div>
-                    <label for="ap_lo" class="block text-gray-700 text-sm font-medium mb-2">Diastolic Blood Pressure (mmHg):</label>
-                    <input type="number" id="ap_lo" name="ap_lo" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm">
-                </div>
-                <div>
-                    <label for="cholesterol" class="block text-gray-700 text-sm font-medium mb-2">Cholesterol (1=Normal, 2=Above Normal, 3=Well Above Normal):</label>
-                    <input type="number" id="cholesterol" name="cholesterol" min="1" max="3" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm">
-                </div>
-                <div>
-                    <label for="gluc" class="block text-gray-700 text-sm font-medium mb-2">Glucose (1=Normal, 2=Above Normal, 3=Well Above Normal):</label>
-                    <input type="number" id="gluc" name="gluc" min="1" max="3" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm">
-                </div>
-                <div>
-                    <label for="smoke" class="block text-gray-700 text-sm font-medium mb-2">Smoking (0=No, 1=Yes):</label>
-                    <input type="number" id="smoke" name="smoke" min="0" max="1" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm">
-                </div>
-                <div>
-                    <label for="alco" class="block text-gray-700 text-sm font-medium mb-2">Alcohol Intake (0=No, 1=Yes):</label>
-                    <input type="number" id="alco" name="alco" min="0" max="1" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm">
-                </div>
-                <div>
-                    <label for="active" class="block text-gray-700 text-sm font-medium mb-2">Physical Activity (0=No, 1=Yes):</label>
-                    <input type="number" id="active" name="active" min="0" max="1" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm">
-                </div>
-                <div class="button-group">
-                    <button type="submit" class="bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-white font-semibold rounded-full px-6 py-3 transition-colors duration-300 ease-in-out focus:outline-none focus:shadow-outline">
-                        Predict Risk
-                    </button>
-                    <button type="button" id="reset-button" class="mt-0 bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white font-semibold rounded-full px-6 py-3 transition-colors duration-300 ease-in-out focus:outline-none focus:shadow-outline">
-                            Retry
-                    </button>
-                </div>
-            </form>
-            <p class="mt-4 text-center text-gray-600 text-sm">
-                <a href="/logout" class="text-blue-500 hover:text-blue-700 transition-colors duration-200">Logout</a>
-            </p>
+<body>
+  <div class="content-wrapper">
+    <div class="form-container">
+      <h1>Let's Start Your Heart Health Assessment ❤️</h1>
+      {% if error %}
+      <div class="alert">{{ error }}</div>
+      {% endif %}
+      <form id="heart-form" method="POST" action="/predict">
+        <label for="dob">Date of Birth:</label>
+        <input type="text" id="dob" name="dob" placeholder="Select your birth date" required />
+        <div id="dob-display"></div>
+
+        <label for="gender">Gender (1=Male, 0=Female):</label>
+        <input type="number" id="gender" name="gender" min="0" max="1" required />
+
+        <label for="height">Height (cm):</label>
+        <input type="number" id="height" name="height" required />
+
+        <label for="weight">Weight (kg):</label>
+        <input type="number" id="weight" name="weight" required />
+
+        <label for="ap_hi">Systolic BP (90-200):</label>
+        <input type="number" id="ap_hi" name="ap_hi" min="90" max="200" required />
+
+        <label for="ap_lo">Diastolic BP (60-120):</label>
+        <input type="number" id="ap_lo" name="ap_lo" min="60" max="120" required />
+
+        <label for="cholesterol">Cholesterol (1=Normal, 2=Above, 3=Well Above):</label>
+        <input type="number" id="cholesterol" name="cholesterol" min="1" max="3" required />
+
+        <label for="gluc">Glucose (1=Normal, 2=Above, 3=Well Above):</label>
+        <input type="number" id="gluc" name="gluc" min="1" max="3" required />
+
+        <label for="smoke">Smoking (0=No, 1=Yes):</label>
+        <input type="number" id="smoke" name="smoke" min="0" max="1" required />
+
+        <label for="alco">Alcohol (0=No, 1=Yes):</label>
+        <input type="number" id="alco" name="alco" min="0" max="1" required />
+
+        <label for="active">Physical Activity (0=No, 1=Yes):</label>
+        <input type="number" id="active" name="active" min="0" max="1" required />
+
+        <div class="button-group">
+          <button type="submit">Predict Risk</button>
+          <button type="button" id="reset-button">Retry</button>
         </div>
+      </form>
+
+      <a href="/logout">Logout</a>
     </div>
+  </div>
 
-    <!-- ✅ JavaScript for flatpickr and reset logic -->
-    <script>
-        flatpickr("#dob", {
-            dateFormat: "d-m-Y",
-            maxDate: "today", // Prevent future DOB selection
-            onChange: function(selectedDates, dateStr, instance) {
-                const dobDisplay = document.getElementById("dob-display");
-                if (selectedDates.length > 0) {
-                    const today = new Date();
-                    const timeDiff = today.getTime() - selectedDates[0].getTime();
-                    const ageInDays = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-                    dobDisplay.textContent = "Date of Birth: " + dateStr + ",  Age in Days: " + ageInDays;
+  <script>
+    flatpickr("#dob", {
+      dateFormat: "d-m-Y",
+      maxDate: "today",
+      onChange: function (selectedDates, dateStr) {
+        const display = document.getElementById("dob-display");
+        if (selectedDates.length > 0) {
+          const today = new Date();
+          const ageDays = Math.floor((today - selectedDates[0]) / (1000 * 60 * 60 * 24));
+          display.textContent = `Date: ${dateStr} | Age in Days: ${ageDays}`;
+        } else {
+          display.textContent = "";
+        }
+      }
+    });
 
-                    const ageInput = document.getElementById("age");
-                    if (ageInput) {
-                        ageInput.value = ageInDays;
-                    }
-                } else {
-                    dobDisplay.textContent = "";
-                }
-            }
-        });
-
-        // ✅ Reset button clears all fields
-        document.getElementById('reset-button').addEventListener('click', function(event) {
-            event.preventDefault();
-            const form = document.getElementById('heart-form');
-            const inputs = form.querySelectorAll('input, select');
-            inputs.forEach(input => {
-                if (input.type === 'number' || input.type === 'text') {
-                    input.value = '';
-                } else if (input.type === 'checkbox' || input.type === 'radio') {
-                    input.checked = false;
-                }
-            });
-            document.getElementById('dob-display').textContent = '';
-        });
-    </script>
+    document.getElementById("reset-button").addEventListener("click", () => {
+      document.getElementById("heart-form").reset();
+      document.getElementById("dob-display").textContent = "";
+    });
+  </script>
 </body>
 </html>
